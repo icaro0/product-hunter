@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h1>{% block title %}Product Hunter{% endblock %}</h1>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.2.0/chart.min.js"
+    integrity="sha512-VMsZqo0ar06BMtg0tPsdgRADvl0kDHpTbugCBBrL55KmucH6hP9zWdLIWY//OTfMnzz6xWQRxQqsUFefwHuHyg=="
+    crossorigin="anonymous"></script>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <canvas id="myChart" height="300"></canvas>
+</div>
+<div class="row">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Fecha</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for price in producto.price %}
+            <tr>
+                <th scope="row">{{loop.index}}</th>
+                <td>{{price.price}}</td>
+                <td>{{price.buy_date}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<script>
+    var ctx = document.getElementById('myChart');
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: [{% for price in producto.price %} '{{price.buy_date}}', {% endfor %}],
+    datasets: [{
+        label: 'Precio',
+        data: [{% for price in producto.price %} {{ price.price }}, {% endfor %}],
+            }]
+        },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+    });
+</script>
+{% endblock %}

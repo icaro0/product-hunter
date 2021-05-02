@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h1>{% block title %}Product Hunter{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-5">
+        <img style="width: 18rem;" src="{{ url_for('send_file', filename=filename) }}">
+    </div>
+    <div class="col-7">
+        <form method="POST">
+            {% for line in contenido %}
+            <div>
+                <div class="row" id="line_{{loop.index}}">
+                    <div class="col">
+                        <input class="form-control" type="text" name="lines[]" value="{{ line }}">
+                    </div>
+                    <div class="col" onclick="deleteLine('line_{{loop.index}}')">
+                        <i class="bi bi-x-circle"></i>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            <input type="submit" value="Subir">
+        </form>
+    </div>
+</div>
+<script>
+    function deleteLine(id) {
+        var myobj = document.getElementById(id);
+        myobj.parentElement.remove(myobj)
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h1>{% block title %} Product Hunter {% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<form enctype="multipart/form-data" method="POST">
+    <div class="mb-3">
+        <label for="formFile" class="form-label">Factura en formato .png .jpg</label>
+        <input class="form-control" type="file" name="file" id="formFile">
+    </div>
+    <div>
+        <input type="submit" value="Subir">
+    </div>
+</form>
+{% endblock %}

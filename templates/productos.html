@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h1>{% block title %}Product Hunter{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Precio anterior</th>
+                <th scope="col">Último precio</th>
+                <th scope="col">URL</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for producto in productos %}
+            <tr>
+                <th scope="row">{{loop.index}}</th>
+                <td>{{producto.title}}</td>
+                <td>{{producto.price[-2]}}</td>
+                <td>{{producto.price|last|attr("price")}}</td>
+                <td><a href="{{ producto.public_url() }}">{{producto.title}}</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
